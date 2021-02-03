@@ -6,14 +6,14 @@ window.addEventListener("DOMContentLoaded", (event) => {
     let info = document.getElementById(infoId);
     
     if (infoId === "card-license-num-confirm") {
-      let licenseNum = document.getElementById("license-num")
-      if (event.target.value !== licenseNum.value) {
-        event.target.style.backgroundColor = "lightcoral";
-        licenseNum.style.backgroundColor = "lightcoral";
-      } else {
-        event.target.style.backgroundColor = "lightgreen";
-        licenseNum.style.backgroundColor = "initial";
-      }
+      // let licenseNum = document.getElementById("license-num")
+      // if (event.target.value !== licenseNum.value) {
+      //   event.target.style.backgroundColor = "lightcoral";
+      //   licenseNum.style.backgroundColor = "lightcoral";
+      // } else {
+      //   event.target.style.backgroundColor = "lightgreen";
+      //   licenseNum.style.backgroundColor = "initial";
+      // }
     }
     
     else if (infoId === "card-donor-status") {
@@ -45,9 +45,27 @@ window.addEventListener("DOMContentLoaded", (event) => {
   })
   
   // ** Phase 3: Check that license numbers match **
-  //              See lines 8- 17
+  //              See lines 8-17
+
   
   // ** Phase 4: Update submit button click count **
-
+  let submit = document.getElementsByTagName("button")[0]
+  let clicks = 0;
+  submit.addEventListener("click", (event) => {
+    let licenseNum = document.getElementById("license-num");
+    let licenseNumConfirm = document.getElementById("license-num-confirm");
+    if (licenseNumConfirm.value !== licenseNum.value) {
+      licenseNumConfirm.style.backgroundColor = "lightcoral";
+      licenseNum.style.backgroundColor = "lightcoral";
+      alert("License Numbers Must Match.");
+    } 
+    else {
+      event.preventDefault();
+      clicks++;
+      event.target.innerText = "Submit " + clicks;
+    //   licenseNumConfirm.style.backgroundColor = "initial";
+    //   licenseNum.style.backgroundColor = "initial";
+    }
+  });
  
 });
