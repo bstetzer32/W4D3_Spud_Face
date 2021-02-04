@@ -6,14 +6,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
     let info = document.getElementById(infoId);
     
     if (infoId === "card-license-num-confirm") {
-      // let licenseNum = document.getElementById("license-num")
-      // if (event.target.value !== licenseNum.value) {
-      //   event.target.style.backgroundColor = "lightcoral";
-      //   licenseNum.style.backgroundColor = "lightcoral";
-      // } else {
-      //   event.target.style.backgroundColor = "lightgreen";
-      //   licenseNum.style.backgroundColor = "initial";
-      // }
     }
     
     else if (infoId === "card-donor-status") {
@@ -39,28 +31,41 @@ window.addEventListener("DOMContentLoaded", (event) => {
     event.target.style.backgroundColor = "initial";
     
   }
+  console.log(form2);
   Array.from(form2).forEach((input) => {
     input.addEventListener("focus", focus)
     input.addEventListener("blur", blur)
   })
   
   // ** Phase 3: Check that license numbers match **
-  //              See lines 8-17
+  //              See lines 49-54
 
   
   // ** Phase 4: Update submit button click count **
-  let submit = document.getElementsByTagName("button")[0]
+  let submit = document.getElementsByTagName("button");
   let clicks = 0;
-  submit.addEventListener("click", (event) => {
+  submit[0].addEventListener("click", (event) => {
+    event.preventDefault();
     let licenseNum = document.getElementById("license-num");
     let licenseNumConfirm = document.getElementById("license-num-confirm");
-    if (licenseNumConfirm.value !== licenseNum.value) {
+    let flag = true;
+    Array.from(form2).forEach((input) => {
+      if (input.value === "") {
+        flag = false;
+      }
+    });
+    if (flag === false && licenseNumConfirm.value !== licenseNum.value) {
+      licenseNumConfirm.style.backgroundColor = "lightcoral";
+      licenseNum.style.backgroundColor = "lightcoral";
+      alert("All Forms Must Be Completed & License Numbers Must Match.");
+    } else if (flag === false) {
+      alert("All Forms Must Be Completed.")
+    } else if (licenseNumConfirm.value !== licenseNum.value) {
       licenseNumConfirm.style.backgroundColor = "lightcoral";
       licenseNum.style.backgroundColor = "lightcoral";
       alert("License Numbers Must Match.");
-    } 
+    }
     else {
-      event.preventDefault();
       clicks++;
       event.target.innerText = "Submit " + clicks;
     //   licenseNumConfirm.style.backgroundColor = "initial";
